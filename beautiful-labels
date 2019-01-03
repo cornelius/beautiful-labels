@@ -1,0 +1,13 @@
+#!/usr/bin/env python3
+
+import sys
+
+import scanner
+
+if len(sys.argv) != 3:
+    print("Usage: beautiful-labels scan <org> <repo>", file=sys.stderr)
+
+org = sys.argv[2]
+repo = sys.argv[3]
+
+scanner.scan_labels(org, repo)
