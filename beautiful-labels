@@ -10,4 +10,5 @@ if len(sys.argv) != 3:
 org = sys.argv[2]
 repo = sys.argv[3]
 
-scanner.scan_labels(org, repo)
+labels = scanner.scan_labels(org, repo)
+scanner.write_yaml(labels, org + '-' + repo + '-labels.yaml')

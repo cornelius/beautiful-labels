@@ -1,6 +1,7 @@
 import subprocess
 import json
 from pathlib import Path
+import yaml
 
 def scan_labels(org, repo):
     print("Scanning labels of GitHub repository '%s/%s'..." % (org, repo))
@@ -23,3 +24,18 @@ def scan_labels(org, repo):
         print(label['name'])
         print("  " + label['description'])
         print("  " + label['color'])
+
+    return labels
+
+def write_yaml(labels, filename):
+    category = []
+    for label in labels:
+        category.append({
+          'id': label['id'],
+          'name': label['name'],
+          'description': label['description'],
+          'color': label['color'],
+    })
+    yaml_data = {'general': category}
+    with open(filename, 'w') as file:
+        file.write(yaml.dump(yaml_data, default_flow_style=False))

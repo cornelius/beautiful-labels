@@ -1,0 +1,61 @@
+general:
+- color: EE7912
+  description: ''
+  id: 1166740325
+  name: another label
+- color: d73a4a
+  description: Something isn't working
+  id: 1097075204
+  name: bug
+- color: '333333'
+  description: Label used across repositories
+  id: 1167038964
+  name: common issue
+- color: '333333'
+  description: Label used across repositories
+  id: 1167042235
+  name: common-issue
+- color: 1fd3d7
+  description: Already exists
+  id: 1166858855
+  name: duplicate
+- color: a2eeef
+  description: New feature or request
+  id: 1097075206
+  name: enhancement
+- color: 7057ff
+  description: Good for newcomers
+  id: 1097075208
+  name: good first issue
+- color: ba1840
+  description: ''
+  id: 1166736935
+  name: hello world
+- color: 008672
+  description: Extra attention is needed
+  id: 1097075207
+  name: help wanted
+- color: '333333'
+  description: Label used across repositories
+  id: 1167043459
+  name: label for all
+- color: d876e3
+  description: Further information is requested
+  id: 1097075210
+  name: question
+- color: 1fd3d7
+  description: Already exists
+  id: 1097075205
+  name: seen before
+- color: '111111'
+  description: Label used across repositories
+  id: 1167036615
+  name: shared label
+- color: EE7912
+  description: Some description
+  id: 1166739985
+  name: some label
+- color: ffffff
+  description: This will not be worked on
+  id: 1097075211
+  name: wontfix
