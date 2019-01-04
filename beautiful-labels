@@ -24,7 +24,7 @@ if cmd == "scan":
     labels = scanner.scan_labels(org, repo)
     scanner.write_yaml(labels, config.yaml_filename())
 elif cmd == "write-config":
-    with open(yaml_filename) as file:
+    with open(config.yaml_filename()) as file:
         labels = yaml.load(file)
         terraform.write_terraform_config(org, repo, labels, config.terraform_filename())
 else:
