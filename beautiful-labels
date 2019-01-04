@@ -2,28 +2,30 @@
 
 import sys
 import yaml
+from pathlib import Path
 
+from config import Config
 import scanner
 import terraform
 
-if len(sys.argv) != 4:
-    print("Usage: beautiful-labels <command> <org> <repo>", file=sys.stderr)
+if len(sys.argv) != 5:
+    print("Usage: beautiful-labels <command> <org> <repo> <directory>", file=sys.stderr)
     print("\nValid commands: scan, write-config", file=sys.stderr)
     sys.exit(1)
 
 org = sys.argv[2]
 repo = sys.argv[3]
+working_dir = sys.argv[4]
 
-yaml_filename = org + '-' + repo + '-labels.yaml'
+config = Config(working_dir, org, repo)
 
 cmd = sys.argv[1]
 if cmd == "scan":
     labels = scanner.scan_labels(org, repo)
-    scanner.write_yaml(labels, yaml_filename)
+    scanner.write_yaml(labels, config.yaml_filename())
 elif cmd == "write-config":
     with open(yaml_filename) as file:
         labels = yaml.load(file)
-        filename = org + "-" + repo + "-labels.tf"
-        terraform.write_terraform_config(org, repo, labels, filename)
+        terraform.write_terraform_config(org, repo, labels, config.terraform_filename())
 else:
     print("Unknown command '%s'. Exiting." % cmd, file=sys.stderr)
