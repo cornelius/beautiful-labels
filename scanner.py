@@ -28,14 +28,15 @@ def scan_labels(org, repo):
     return labels
 
 def write_yaml(labels, filename):
-    category = []
+    category = {'category': 'scanned'}
+    category['labels'] = []
     for label in labels:
-        category.append({
+        category['labels'].append({
           'id': label['id'],
           'name': label['name'],
           'description': label['description'],
           'color': label['color'],
     })
-    yaml_data = {'general': category}
+    yaml_data = [category]
     with open(filename, 'w') as file:
         file.write(yaml.dump(yaml_data, default_flow_style=False))

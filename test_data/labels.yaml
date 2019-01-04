@@ -1,13 +1,14 @@
-general:
-- color: EE7912
-  description: ''
-  id: 1166740325
-  name: another label
-- color: d73a4a
-  description: Something isn't working
-  id: 1097075204
-  name: bug
-- color: '333333'
-  description: Label used across repositories
-  id: 1167038964
-  name: common issue
+- category: scanned
+  labels:
+  - color: EE7912
+    description: ''
+    id: 1166740325
+    name: another label
+  - color: d73a4a
+    description: Something isn't working
+    id: 1097075204
+    name: bug
+  - color: '333333'
+    description: Label used across repositories
+    id: 1167038964
+    name: common issue

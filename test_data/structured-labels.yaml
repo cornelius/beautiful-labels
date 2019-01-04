@@ -1,0 +1,16 @@
+- category: Type
+  labels:
+  - color: d73a4a
+    description: Something isn't working
+    id: 1097075204
+    name: bug
+- category: Components
+  color: '123456'
+  labels:
+  - color: EE7912
+    description: Frontend
+    id: 1166740325
+    name: frontend
+  - description: Backend and database
+    id: 1167038964
+    name: backend
