@@ -1,7 +1,6 @@
 import subprocess
 import json
 from pathlib import Path
-import yaml
 
 from labels import Labels
 
@@ -28,18 +27,3 @@ def labels_from_json_data(json_data):
     for label in labels_json:
         labels.add_label('scanned', label['id'], label['name'], label['description'], label['color'])
     return labels
-
-def write_yaml(labels, filename):
-    yaml_data = []
-    for category in labels.all_categories():
-        category_data = {'category': category, 'labels': []}
-        for label in labels.labels_for_category(category):
-            category_data['labels'].append({
-                'id': label['id'],
-                'name': label['name'],
-                'description': label['description'],
-                'color': label['color'],
-            })
-        yaml_data.append(category_data)
-    with open(filename, 'w') as file:
-        file.write(yaml.dump(yaml_data, default_flow_style=False))

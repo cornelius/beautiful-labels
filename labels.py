@@ -1,3 +1,5 @@
+import yaml
+
 class Labels:
     def __init__(self, org, repo):
         self.org = org
@@ -14,3 +16,18 @@ class Labels:
 
     def labels_for_category(self, category):
         return self.categories[category]
+
+    def save(self, filename):
+        yaml_data = []
+        for category in self.all_categories():
+            category_data = {'category': category, 'labels': []}
+            for label in self.labels_for_category(category):
+                category_data['labels'].append({
+                    'id': label['id'],
+                    'name': label['name'],
+                    'description': label['description'],
+                    'color': label['color'],
+                })
+            yaml_data.append(category_data)
+        with open(filename, 'w') as file:
+            file.write(yaml.dump(yaml_data, default_flow_style=False))
