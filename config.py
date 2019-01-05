@@ -11,3 +11,6 @@ class Config:
 
     def terraform_filename(self):
         return str(Path(self.working_dir) / (self.org + '-' + self.repo + '-labels.tf'))
+
+    def json_filename(self):
+        return str(Path(self.working_dir) / (self.org + '-' + self.repo + '-labels.json'))

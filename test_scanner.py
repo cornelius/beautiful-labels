@@ -3,9 +3,7 @@ from scanner import labels_from_json_data
 
 def test_write_yaml(tmp_path):
     with open('test_data/labels.json') as file:
-      labels = labels_from_json_data(file.read())
-      labels.org = "someorg"
-      labels.repo = "somerepo"
+        labels = labels_from_json_data("someorg", "somerepo", file.read())
     actual_file = tmp_path / 'labels.yaml'
     labels.save(str(actual_file))
     with open('test_data/written-labels.yaml') as expected_file:
