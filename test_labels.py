@@ -11,3 +11,34 @@ def test_save(tmp_path):
     with open('test_data/labels.yaml') as expected_file:
         with open(str(actual_file)) as actual_file:
             assert actual_file.read() == expected_file.read()
+
+def test_load():
+    labels = Labels("someorg", "somerepo")
+    labels.load('test_data/labels.yaml')
+
+    assert len(labels.labels_for_category("scanned")) == 3
+
+    label = labels.labels_for_category("scanned")[0]
+    assert label["name"] == "another label"
+    assert label["description"] == ""
+    assert label["color"] == "EE7912"
+
+    label = labels.labels_for_category("scanned")[1]
+    assert label["name"] == "bug"
+    assert label["description"] == "Something isn't working"
+    assert label["color"] == "d73a4a"
+
+def test_structured_load():
+    labels = Labels("someorg", "somerepo")
+    labels.load('test_data/structured-labels.yaml')
+
+    assert len(labels.labels_for_category("Type")) == 1
+    assert len(labels.labels_for_category("Components")) == 2
+
+    label = labels.labels_for_category("Components")[0]
+    assert label["name"] == "frontend"
+    assert label["color"] == "EE7912"
+
+    label = labels.labels_for_category("Components")[1]
+    assert label["name"] == "backend"
+    assert label["color"] == "123456"

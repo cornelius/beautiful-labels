@@ -31,3 +31,19 @@ class Labels:
             yaml_data.append(category_data)
         with open(filename, 'w') as file:
             file.write(yaml.dump(yaml_data, default_flow_style=False))
+
+    def load(self, filename):
+        with open(filename) as file:
+            yaml_data = yaml.load(file)
+        for category in yaml_data:
+            category_name = category["category"]
+            if "color" in category:
+                category_color = category["color"]
+            else:
+                category_color = "ffffff"
+            for label in category["labels"]:
+                if "color" in label:
+                    color = label["color"]
+                else:
+                    color = category_color
+                self.add_label(category_name, label["id"], label["name"], label["description"], color)
