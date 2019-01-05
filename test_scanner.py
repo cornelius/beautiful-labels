@@ -1,9 +1,10 @@
 import json
 from scanner import write_yaml
+from scanner import labels_from_json_data
 
 def test_write_yaml(tmp_path):
     with open('test_data/labels.json') as file:
-      labels = json.loads(file.read())
+      labels = labels_from_json_data(file.read())
     actual_file = tmp_path / 'labels.yaml'
     write_yaml(labels, str(actual_file))
     with open('test_data/labels.yaml') as expected_file:

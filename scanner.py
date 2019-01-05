@@ -3,6 +3,8 @@ import json
 from pathlib import Path
 import yaml
 
+from labels import Labels
+
 def scan_labels(org, repo):
     print("Scanning labels of GitHub repository '%s/%s'..." % (org, repo))
 
@@ -18,25 +20,26 @@ def scan_labels(org, repo):
       with open(json_filename, 'w') as file:
         file.write(json_data)
 
-    labels = json.loads(json_data)
+    return labels_from_json_data(json_data)
 
-    for label in labels:
-        print(label['name'])
-        print("  " + label['description'])
-        print("  " + label['color'])
-
+def labels_from_json_data(json_data):
+    labels_json = json.loads(json_data)
+    labels = Labels("", "")
+    for label in labels_json:
+        labels.add_label('scanned', label['id'], label['name'], label['description'], label['color'])
     return labels
 
 def write_yaml(labels, filename):
-    category = {'category': 'scanned'}
-    category['labels'] = []
-    for label in labels:
-        category['labels'].append({
-          'id': label['id'],
-          'name': label['name'],
-          'description': label['description'],
-          'color': label['color'],
-    })
-    yaml_data = [category]
+    yaml_data = []
+    for category in labels.all_categories():
+        category_data = {'category': category, 'labels': []}
+        for label in labels.labels_for_category(category):
+            category_data['labels'].append({
+                'id': label['id'],
+                'name': label['name'],
+                'description': label['description'],
+                'color': label['color'],
+            })
+        yaml_data.append(category_data)
     with open(filename, 'w') as file:
         file.write(yaml.dump(yaml_data, default_flow_style=False))
