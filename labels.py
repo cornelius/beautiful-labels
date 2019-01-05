@@ -18,9 +18,9 @@ class Labels:
         return self.categories[category]
 
     def save(self, filename):
-        yaml_data = []
+        yaml_data = {'org': self.org, 'repo': self.repo, 'categories': []}
         for category in self.all_categories():
-            category_data = {'category': category, 'labels': []}
+            category_data = {'name': category, 'labels': []}
             for label in self.labels_for_category(category):
                 category_data['labels'].append({
                     'id': label['id'],
@@ -28,15 +28,16 @@ class Labels:
                     'description': label['description'],
                     'color': label['color'],
                 })
-            yaml_data.append(category_data)
+            yaml_data['categories'].append(category_data)
+        print(yaml_data)
         with open(filename, 'w') as file:
             file.write(yaml.dump(yaml_data, default_flow_style=False))
 
     def load(self, filename):
         with open(filename) as file:
             yaml_data = yaml.load(file)
-        for category in yaml_data:
-            category_name = category["category"]
+        for category in yaml_data["categories"]:
+            category_name = category["name"]
             if "color" in category:
                 category_color = category["color"]
             else:

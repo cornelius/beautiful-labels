@@ -1,10 +1,13 @@
-- category: Type
+org: someorg
+repo: somerepo
+categories:
+- name: Type
   labels:
   - color: d73a4a
     description: Something isn't working
     id: 1097075204
     name: bug
-- category: Components
+- name: Components
   color: '123456'
   labels:
   - color: EE7912

@@ -1,8 +1,5 @@
-org: someorg
-repo: somerepo
 categories:
-- name: scanned
-  labels:
+- labels:
   - color: EE7912
     description: ''
     id: 1166740325
@@ -15,3 +12,6 @@ categories:
     description: Label used across repositories
     id: 1167038964
     name: common issue
+  name: scanned
+org: someorg
+repo: somerepo

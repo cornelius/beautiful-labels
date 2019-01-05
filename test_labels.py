@@ -1,3 +1,5 @@
+import yaml
+
 from labels import Labels
 
 def test_save(tmp_path):
@@ -8,9 +10,18 @@ def test_save(tmp_path):
 
     actual_file = tmp_path / 'labels.yaml'
     labels.save(str(actual_file))
-    with open('test_data/labels.yaml') as expected_file:
+    with open('test_data/written-labels.yaml') as expected_file:
         with open(str(actual_file)) as actual_file:
-            assert actual_file.read() == expected_file.read()
+            actual_data = actual_file.read()
+            print(actual_data)
+            assert actual_data == expected_file.read()
+
+def test_equivalence_of_written_and_test_data():
+    with open('test_data/written-labels.yaml') as file:
+        written_data = yaml.load(file)
+    with open('test_data/labels.yaml') as file:
+        test_data = yaml.load(file)
+    assert written_data == test_data
 
 def test_load():
     labels = Labels("someorg", "somerepo")
