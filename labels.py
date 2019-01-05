@@ -12,7 +12,7 @@ class Labels:
         self.categories[category].append({"id": label_id, "name": name, "description": description, "color": color})
 
     def all_categories(self):
-        return self.categories.keys()
+        return sorted(self.categories.keys())
 
     def labels_for_category(self, category):
         return self.categories[category]
