@@ -1,0 +1,29 @@
+[
+  {
+    "id": 1166740325,
+    "node_id": "MDU6TGFiZWwxMTY2NzQwMzI1",
+    "url": "https://api.github.com/repos/cornelius/gittest/labels/another%20label",
+    "name": "another label",
+    "color": "EE7912",
+    "default": false,
+    "description": ""
+  },
+  {
+    "id": 1097075204,
+    "node_id": "MDU6TGFiZWwxMDk3MDc1MjA0",
+    "url": "https://api.github.com/repos/cornelius/gittest/labels/bug",
+    "name": "bug",
+    "color": "d73a4a",
+    "default": true,
+    "description": "Something isn't working"
+  },
+  {
+    "id": 1167038964,
+    "node_id": "MDU6TGFiZWwxMTY3MDM4OTY0",
+    "url": "https://api.github.com/repos/cornelius/gittest/labels/common%20issue",
+    "name": "common issue",
+    "color": "333333",
+    "default": false,
+    "description": "Label used across repositories"
+  }
+]
