@@ -76,27 +76,29 @@ def write_rect(doc, x=0, y=0, width=10, height=10, fill="black"):
 def write_svg(labels, filename):
     lines = calculate_lines(labels)
 
-    image_width = 850
-    image_height = 100 + len(lines) * 60
+    line_height = 60
+
+    image_width = 840
+    image_height = 100 + len(lines) * line_height
 
     doc = Document()
     with doc.tag('svg', 'width="%s" height="%s"' % (image_width, image_height)):
         doc.tag('rect', 'x="0" y="0" width="%s" height="%s" fill="#eee"' % (image_width, image_height))
 
-        write_text(doc, "Labels for %s/%s" % (labels.org, labels.repo), size=30, fill="#444", x=40, y=50)
+        write_text(doc, "Labels for %s/%s" % (labels.org, labels.repo), size=25, fill="#444", x=40, y=50)
 
         line_y = 120
         for category, labels_line in lines:
-            write_text(doc, category, size=30, fill="#777", x=40, y=line_y)
+            write_text(doc, category, size=25, fill="#777", x=40, y=line_y)
 
-            label_x = 250
+            label_x = 200
             for label in labels_line:
-                write_rect(doc, x=label_x, y=line_y-30, width=120, height=40, fill="#" + label["color"])
-                write_text(doc, label["name"], fill="white", x=label_x+13, y=line_y-4)
+                write_rect(doc, x=label_x, y=line_y-30, width=130, height=40, fill="#" + label["color"])
+                write_text(doc, label["name"], size=15, fill="white", x=label_x+13, y=line_y-4)
 
-                label_x += 140
+                label_x += 150
 
-            line_y += 60
+            line_y += line_height
 
     with open(filename, "w") as file:
         file.write(doc.out)
