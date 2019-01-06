@@ -53,10 +53,16 @@ class Document:
 def calculate_lines(labels):
     lines = []
     for category in labels.all_categories():
+        line_header = category
         line_labels = []
         for label in labels.labels_for_category(category):
             line_labels.append(label)
-        lines.append((category, line_labels))
+            if len(line_labels) == 4:
+                lines.append((line_header, line_labels.copy()))
+                line_labels.clear()
+                line_header = ""
+        if line_labels:
+            lines.append((line_header, line_labels))
     return lines
 
 def write_text(doc, text, size=20, fill="black", x="0", y="0"):
