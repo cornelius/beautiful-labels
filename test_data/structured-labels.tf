@@ -16,7 +16,7 @@ resource "github_issue_label" "1166740325" {
   repository  = "somerepo"
   name        = "frontend"
   description = "Frontend"
-  color       = "EE7912"
+  color       = "dddddd"
 }
 
 resource "github_issue_label" "1167038964" {

@@ -1,6 +1,6 @@
 from svg import Document
 from labels import Labels
-from svg import calculate_lines
+from svg import calculate_lines, text_color
 
 def test_generate_xml():
     doc = Document()
@@ -41,7 +41,7 @@ def test_calculate_lines():
               'id': 1097075204,
               'name': 'bug'}]),
         ('Components',
-            [{'color': 'EE7912',
+            [{'color': 'dddddd',
               'description': 'Frontend',
               'id': 1166740325,
               'name': 'frontend'},
@@ -79,3 +79,9 @@ def test_calculate_lines_with_many_labels():
         ('Someothercategory',
             [{'color': 'fff', 'description': '', 'id': 'x', 'name': 'other label'}])
     ]
+
+def test_text_color():
+    assert text_color("000000") == "white"
+    assert text_color("ffffff") == "black"
+    assert text_color("f9eea7") == "black"
+    assert text_color("5319e7") == "white"

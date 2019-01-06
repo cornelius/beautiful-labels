@@ -23,8 +23,8 @@
       Components
     </text>
   </g>
-  <rect x="200" y="150" width="130" height="40" fill="#EE7912" rx="5"/>
-  <g font-size="15" font-family="arial" fill="white">
+  <rect x="200" y="150" width="130" height="40" fill="#dddddd" rx="5"/>
+  <g font-size="15" font-family="arial" fill="black">
     <text x="213" y="176">
       frontend
     </text>

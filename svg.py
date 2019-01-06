@@ -65,6 +65,15 @@ def calculate_lines(labels):
             lines.append((line_header, line_labels))
     return lines
 
+def text_color(background_color):
+    (r,g,b) = tuple(int(background_color[i:i+2], 16) for i in (0, 2 ,4))
+    # See https://www.w3.org/TR/AERT/#color-contrast for details about the formula
+    brightness = (0.299*r + 0.587*g + 0.114*b)
+    if brightness > 186:
+        return "black"
+    else:
+        return "white"
+
 def write_text(doc, text, size=20, fill="black", x="0", y="0"):
     with doc.tag('g', 'font-size="%s" font-family="arial" fill="%s"' % (size, fill)):
         with doc.tag('text', 'x="%s" y="%s"' % (x, y)):
@@ -93,8 +102,8 @@ def write_svg(labels, filename):
 
             label_x = 200
             for label in labels_line:
-                write_rect(doc, x=label_x, y=line_y-30, width=130, height=40, fill="#" + label["color"])
-                write_text(doc, label["name"], size=15, fill="white", x=label_x+13, y=line_y-4)
+                write_rect(doc, x=label_x, y=line_y-30, width=130, height=40, fill="#" + str(label["color"]))
+                write_text(doc, label["name"], size=15, fill=text_color(str(label["color"])), x=label_x+13, y=line_y-4)
 
                 label_x += 150
 

@@ -10,7 +10,7 @@ categories:
 - name: Components
   color: '123456'
   labels:
-  - color: EE7912
+  - color: 'dddddd'
     description: Frontend
     id: 1166740325
     name: frontend

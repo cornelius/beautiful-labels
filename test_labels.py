@@ -48,7 +48,7 @@ def test_structured_load():
 
     label = labels.labels_for_category("Components")[0]
     assert label["name"] == "frontend"
-    assert label["color"] == "EE7912"
+    assert label["color"] == "dddddd"
 
     label = labels.labels_for_category("Components")[1]
     assert label["name"] == "backend"
