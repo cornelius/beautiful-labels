@@ -8,6 +8,7 @@ from config import Config
 from labels import Labels
 import scanner
 import terraform
+import svg
 
 if len(sys.argv) != 5:
     print("Usage: beautiful-labels <command> <org> <repo> <directory>", file=sys.stderr)
@@ -28,6 +29,9 @@ if cmd == "scan":
 elif cmd == "write-config":
     labels.load(config.yaml_filename())
     terraform.write_terraform_config(labels, config.terraform_filename())
+elif cmd == "create-svg":
+    labels.load(config.yaml_filename())
+    svg.write_svg(labels, config.svg_filename())
 else:
     print("Unknown command '%s'. Exiting." % cmd, file=sys.stderr)
     sys.exit(1)

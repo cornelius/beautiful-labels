@@ -11,3 +11,7 @@ def test_terraform_filename():
 def test_json_filename():
     config = Config("some/dir", "someorg", "somerepo")
     assert config.json_filename() == "some/dir/someorg-somerepo-labels.json"
+
+def test_svg_filename():
+    config = Config("some/dir", "someorg", "somerepo")
+    assert config.svg_filename() == "some/dir/someorg-somerepo-labels.svg"

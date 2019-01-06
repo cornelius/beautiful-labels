@@ -36,3 +36,12 @@ def test_scan(tmp_path):
     with open('test_data/labels.yaml') as file:
         expected_data = yaml.load(file)
     assert actual_data == expected_data
+
+def test_create_svg(tmp_path):
+    copyfile("test_data/structured-labels.yaml", str(tmp_path / "someorg-somerepo-labels.yaml"))
+    run_cmd("create-svg someorg somerepo " + str(tmp_path))
+
+    actual_file = tmp_path / 'someorg-somerepo-labels.svg'
+    with open('test_data/structured-labels.svg') as expected_file:
+        with open(str(actual_file)) as actual_file:
+            assert actual_file.read() == expected_file.read()

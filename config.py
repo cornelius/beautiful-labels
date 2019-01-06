@@ -14,3 +14,6 @@ class Config:
 
     def json_filename(self):
         return str(Path(self.working_dir) / (self.org + '-' + self.repo + '-labels.json'))
+
+    def svg_filename(self):
+        return str(Path(self.working_dir) / (self.org + '-' + self.repo + '-labels.svg'))
