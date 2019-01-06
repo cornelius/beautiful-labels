@@ -1,0 +1,37 @@
+org: cornelius
+repo: beautiful-labels
+categories:
+- name: Type
+  labels:
+  - color: d73a4a
+    description: Something isn't working
+    id: 1181917834
+    name: bug
+  - color: a2eeef
+    description: New feature or request
+    id: 1181917836
+    name: enhancement
+  - color: d876e3
+    description: Further information is requested
+    id: 1181917840
+    name: question
+- name: Status
+  labels:
+  - color: cfd3d7
+    description: This issue or pull request already exists
+    id: 1181917835
+    name: duplicate
+  - color: e4e669
+    description: This doesn't seem right
+    id: 1181917839
+    name: invalid
+- name: Welcome
+  labels:
+  - color: 7057ff
+    description: Good for newcomers
+    id: 1181917838
+    name: good first issue
+  - color: 008672
+    description: Extra attention is needed
+    id: 1181917837
+    name: help wanted
