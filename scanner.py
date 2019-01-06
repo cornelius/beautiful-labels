@@ -13,7 +13,7 @@ def scan_labels(config):
         json_data = file.read()
     else:
       json_data = subprocess.check_output(['curl', '-s', '-H "Accept: application/vnd.github.symmetra-preview+json"',
-            'https://api.github.com/repos/' + org + '/' + repo + '/labels']).decode('utf-8')
+            'https://api.github.com/repos/' + config.org + '/' + config.repo + '/labels']).decode('utf-8')
       with open(config.json_filename(), 'w') as file:
         file.write(json_data)
 
