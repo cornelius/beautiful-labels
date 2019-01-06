@@ -74,13 +74,17 @@ def write_rect(doc, x=0, y=0, width=10, height=10, fill="black"):
     doc.tag('rect', 'x="%s" y="%s" width="%s" height="%s" fill="%s" rx="5"' % (x, y, width, height, fill))
 
 def write_svg(labels, filename):
+    lines = calculate_lines(labels)
+
+    image_width = 850
+    image_height = 100 + len(lines) * 60
+
     doc = Document()
-    with doc.tag('svg', 'width="600" height="400"'):
-        doc.tag('rect', 'x="0" y="0" width="600" height="220" fill="#eee"')
+    with doc.tag('svg', 'width="%s" height="%s"' % (image_width, image_height)):
+        doc.tag('rect', 'x="0" y="0" width="%s" height="%s" fill="#eee"' % (image_width, image_height))
 
         write_text(doc, "Labels for %s/%s" % (labels.org, labels.repo), size=30, fill="#444", x=40, y=50)
 
-        lines = calculate_lines(labels)
         line_y = 120
         for category, labels_line in lines:
             write_text(doc, category, size=30, fill="#777", x=40, y=line_y)
