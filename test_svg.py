@@ -1,4 +1,6 @@
 from svg import Document
+from labels import Labels
+from svg import calculate_lines
 
 def test_generate_xml():
     doc = Document()
@@ -25,3 +27,26 @@ def test_generate_xml():
   <rect y="40"/>
 </svg>
 '''
+
+def test_calculate_lines():
+    labels = Labels("someorg", "somerepo")
+    labels.load('test_data/structured-labels.yaml')
+
+    lines = calculate_lines(labels)
+
+    assert lines == [
+        ('Type',
+            [{'color': 'd73a4a',
+              'description': "Something isn't working",
+              'id': 1097075204,
+              'name': 'bug'}]),
+        ('Components',
+            [{'color': 'EE7912',
+              'description': 'Frontend',
+              'id': 1166740325,
+              'name': 'frontend'},
+             {'color': '123456',
+              'description': 'Backend and database',
+              'id': 1167038964,
+              'name': 'backend'}]),
+    ]

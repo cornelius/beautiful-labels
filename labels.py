@@ -5,14 +5,16 @@ class Labels:
         self.org = org
         self.repo = repo
         self.categories = {}
+        self.category_names = []
 
     def add_label(self, category, label_id, name, description, color):
         if not category in self.categories:
             self.categories[category] = []
+            self.category_names.append(category)
         self.categories[category].append({"id": label_id, "name": name, "description": description, "color": color})
 
     def all_categories(self):
-        return sorted(self.categories.keys())
+        return self.category_names
 
     def labels_for_category(self, category):
         return self.categories[category]

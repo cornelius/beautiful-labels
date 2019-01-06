@@ -50,6 +50,15 @@ class Document:
         self.indent()
         self.out += text + "\n"
 
+def calculate_lines(labels):
+    lines = []
+    for category in labels.all_categories():
+        line_labels = []
+        for label in labels.labels_for_category(category):
+            line_labels.append(label)
+        lines.append((category, line_labels))
+    return lines
+
 def write_text(doc, text, size=20, fill="black", x="0", y="0"):
     with doc.tag('g', 'font-size="%s" font-family="arial" fill="%s"' % (size, fill)):
         with doc.tag('text', 'x="%s" y="%s"' % (x, y)):
@@ -65,17 +74,19 @@ def write_svg(labels, filename):
 
         write_text(doc, "Labels for %s/%s" % (labels.org, labels.repo), size=30, fill="#444", x=40, y=50)
 
-        write_text(doc, "Type", size=30, fill="#777", x=40, y=120)
+        lines = calculate_lines(labels)
+        line_y = 120
+        for category, labels_line in lines:
+            write_text(doc, category, size=30, fill="#777", x=40, y=line_y)
 
-        write_rect(doc, x=250, y=90, width=120, height=40, fill="#d73a4a")
-        write_text(doc, "bug", fill="white", x=263, y=116)
+            label_x = 250
+            for label in labels_line:
+                write_rect(doc, x=label_x, y=line_y-30, width=120, height=40, fill="#" + label["color"])
+                write_text(doc, label["name"], fill="white", x=label_x+13, y=line_y-4)
 
-        write_text(doc, "Components", size=30, fill="#777", x=40, y=180)
+                label_x += 140
 
-        write_rect(doc, x=250, y=150, width=120, height=40, fill="#EE7912")
-        write_text(doc, "frontend", fill="white", x=263, y=176)
-        write_rect(doc, x=390, y=150, width=120, height=40, fill="#123456")
-        write_text(doc, "backend", fill="white", x=403, y=176)
+            line_y += 60
 
     with open(filename, "w") as file:
         file.write(doc.out)
