@@ -6,14 +6,17 @@ class Config:
         self.org = org
         self.repo = repo
 
+    def filename(self, extension):
+        return str(Path(self.working_dir) / (self.org + '-' + self.repo + '-labels.' + extension))
+
     def yaml_filename(self):
-        return str(Path(self.working_dir) / (self.org + '-' + self.repo + '-labels.yaml'))
+        return self.filename('yaml')
 
     def terraform_filename(self):
-        return str(Path(self.working_dir) / (self.org + '-' + self.repo + '-labels.tf'))
+        return self.filename('tf')
 
     def json_filename(self):
-        return str(Path(self.working_dir) / (self.org + '-' + self.repo + '-labels.json'))
+        return self.filename('json')
 
     def svg_filename(self):
-        return str(Path(self.working_dir) / (self.org + '-' + self.repo + '-labels.svg'))
+        return self.filename('svg')
