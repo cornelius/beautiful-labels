@@ -9,13 +9,13 @@ def scan_labels(config):
 
     json_data = ''
     if Path(config.json_filename()).exists():
-      with open(config.json_filename(), 'r') as file:
-        json_data = file.read()
+        with open(config.json_filename(), 'r') as file:
+            json_data = file.read()
     else:
-      json_data = subprocess.check_output(['curl', '-s', '-H "Accept: application/vnd.github.symmetra-preview+json"',
+        json_data = subprocess.check_output(['curl', '-s', '-H "Accept: application/vnd.github.symmetra-preview+json"',
             'https://api.github.com/repos/' + config.org + '/' + config.repo + '/labels']).decode('utf-8')
-      with open(config.json_filename(), 'w') as file:
-        file.write(json_data)
+        with open(config.json_filename(), 'w') as file:
+            file.write(json_data)
 
     return labels_from_json_data(config.org, config.repo, json_data)
 
