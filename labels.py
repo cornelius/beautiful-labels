@@ -31,7 +31,6 @@ class Labels:
                     'color': label['color'],
                 })
             yaml_data['categories'].append(category_data)
-        print(yaml_data)
         with open(filename, 'w') as file:
             file.write(yaml.dump(yaml_data, default_flow_style=False))
 
