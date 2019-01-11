@@ -82,7 +82,7 @@ def write_text(doc, text, size=20, fill="black", x="0", y="0"):
 def write_rect(doc, x=0, y=0, width=10, height=10, fill="black"):
     doc.tag('rect', 'x="%s" y="%s" width="%s" height="%s" fill="%s" rx="5"' % (x, y, width, height, fill))
 
-def write_svg(labels, filename):
+def write_svg(labels, filename, label_font_size=14):
     lines = calculate_lines(labels)
 
     line_height = 60
@@ -103,7 +103,7 @@ def write_svg(labels, filename):
             label_x = 200
             for label in labels_line:
                 write_rect(doc, x=label_x, y=line_y-30, width=130, height=40, fill="#" + str(label["color"]))
-                write_text(doc, label["name"], size=15, fill=text_color(str(label["color"])), x=label_x+13, y=line_y-4)
+                write_text(doc, label["name"], size=label_font_size, fill=text_color(str(label["color"])), x=label_x+13, y=line_y-4)
 
                 label_x += 150
 

@@ -1,4 +1,20 @@
 #!/usr/bin/env python3
+"""Usage:
+  beautiful-labels scan ORG REPO DIRECTORY
+  beautiful-labels create-svg ORG REPO DIRECTORY [--label-font-size=<size>]
+  beautiful-labels write-config ORG REPO DIRECTORY
+  beautiful-labels -h | --help
+
+Arguments:
+  ORG        name of GitHub organization
+  REPO       name of GitHub repository
+  DIRECTORY  working directory where data is read and written to
+
+Options:
+  -h, --help                Show this help
+  --label-font-size=<size>  Size of font on labels
+"""
+from docopt import docopt
 
 import sys
 import yaml
@@ -10,14 +26,14 @@ import scanner
 import terraform
 import svg
 
-if len(sys.argv) != 5:
-    print("Usage: beautiful-labels <command> <org> <repo> <directory>", file=sys.stderr)
-    print("\nValid commands: scan, write-config", file=sys.stderr)
-    sys.exit(1)
+arguments = docopt(__doc__)
 
-org = sys.argv[2]
-repo = sys.argv[3]
-working_dir = sys.argv[4]
+org = arguments["ORG"]
+repo = arguments["REPO"]
+working_dir = arguments["DIRECTORY"]
+label_font_size = arguments["--label-font-size"]
+if label_font_size == None:
+    label_font_size = 15
 
 config = Config(working_dir, org, repo)
 labels = Labels(org, repo)
@@ -31,7 +47,7 @@ elif cmd == "write-config":
     terraform.write_terraform_config(labels, config.terraform_filename())
 elif cmd == "create-svg":
     labels.load(config.yaml_filename())
-    svg.write_svg(labels, config.svg_filename())
+    svg.write_svg(labels, config.svg_filename(), label_font_size=label_font_size)
 else:
     print("Unknown command '%s'. Exiting." % cmd, file=sys.stderr)
     sys.exit(1)

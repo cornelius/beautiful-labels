@@ -39,7 +39,7 @@ def test_scan(tmp_path):
 
 def test_create_svg(tmp_path):
     copyfile("test_data/structured-labels.yaml", str(tmp_path / "someorg-somerepo-labels.yaml"))
-    run_cmd("create-svg someorg somerepo " + str(tmp_path))
+    run_cmd("create-svg someorg somerepo " + str(tmp_path) + " --label-font-size=15")
 
     actual_file = tmp_path / 'someorg-somerepo-labels.svg'
     with open('test_data/structured-labels.svg') as expected_file:
