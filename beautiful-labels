@@ -33,7 +33,7 @@ repo = arguments["REPO"]
 working_dir = arguments["DIRECTORY"]
 label_font_size = arguments["--label-font-size"]
 if label_font_size == None:
-    label_font_size = 15
+    label_font_size = 14
 
 config = Config(working_dir, org, repo)
 labels = Labels(org, repo)
