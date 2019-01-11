@@ -1,0 +1,45 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="840" height="220" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <rect x="0" y="0" width="840" height="220" fill="#eee"/>
+  <g font-size="25" font-family="arial" fill="#444">
+    <text x="40" y="50">
+      Labels for multi/line
+    </text>
+  </g>
+  <g font-size="25" font-family="arial" fill="#777">
+    <text x="40" y="120">
+      Type
+    </text>
+  </g>
+  <rect x="200" y="90" width="130" height="40" fill="#d73a4a" rx="5"/>
+  <g font-size="15" font-family="arial" fill="white">
+    <text x="213" y="116">
+      bug
+    </text>
+  </g>
+  <rect x="350" y="90" width="130" height="40" fill="#123456" rx="5"/>
+  <g font-size="15" font-family="arial" fill="white">
+    <text x="363" y="116">
+      feature
+    </text>
+  </g>
+  <rect x="500" y="90" width="130" height="40" fill="#654321" rx="5"/>
+  <g font-size="15" font-family="arial" fill="white">
+    <text x="513" y="116">
+      refactoring
+    </text>
+  </g>
+  <rect x="650" y="90" width="130" height="40" fill="#dddddd" rx="5"/>
+  <g font-size="15" font-family="arial" fill="black">
+    <text x="663" y="116">
+      frontend
+    </text>
+  </g>
+  <rect x="200" y="150" width="130" height="40" fill="#ffffff" rx="5"/>
+  <g font-size="15" font-family="arial" fill="black">
+    <text x="213" y="176">
+      backend
+    </text>
+  </g>
+</svg>

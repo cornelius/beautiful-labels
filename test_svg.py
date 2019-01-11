@@ -1,6 +1,6 @@
 from svg import Document
 from labels import Labels
-from svg import calculate_lines, text_color
+from svg import calculate_lines, text_color, write_svg
 
 def test_generate_xml():
     doc = Document()
@@ -85,3 +85,13 @@ def test_text_color():
     assert text_color("ffffff") == "black"
     assert text_color("f9eea7") == "black"
     assert text_color("5319e7") == "white"
+
+def test_write_svg(tmp_path):
+    labels = Labels("multi", "line")
+    labels.load("test_data/multi-line-labels.yaml")
+    actual_file = tmp_path / 'multi-line-labels.svg'
+    write_svg(labels, actual_file, label_font_size=15)
+
+    with open('test_data/multi-line-labels.svg') as expected_file:
+        with open(str(actual_file)) as actual_file:
+            assert actual_file.read() == expected_file.read()

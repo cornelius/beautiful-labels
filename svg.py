@@ -98,7 +98,8 @@ def write_svg(labels, filename, label_font_size=14):
 
         line_y = 120
         for category, labels_line in lines:
-            write_text(doc, category, size=25, fill="#777", x=40, y=line_y)
+            if category:
+                write_text(doc, category, size=25, fill="#777", x=40, y=line_y)
 
             label_x = 200
             for label in labels_line:
