@@ -111,5 +111,5 @@ def write_svg(labels, filename, label_font_size=14):
 
             line_y += line_height
 
-    with open(filename, "w") as file:
+    with open(str(filename), "w") as file:
         file.write(doc.out)
