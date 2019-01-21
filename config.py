@@ -1,4 +1,5 @@
 from pathlib import Path
+import datetime
 
 class Config:
     def __init__(self, dir, org, repo):
@@ -20,3 +21,7 @@ class Config:
 
     def svg_filename(self):
         return self.filename('svg')
+
+    def backup_filename(self):
+        return str(Path(self.working_dir) / (self.org + '-' + self.repo + '-backup-labels.'
+            + datetime.datetime.now().strftime("%Y%m%dT%H%M%S") + ".json"))

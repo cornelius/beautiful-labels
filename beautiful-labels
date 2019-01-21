@@ -3,6 +3,7 @@
   beautiful-labels scan ORG REPO DIRECTORY
   beautiful-labels create-svg ORG REPO DIRECTORY [--label-font-size=<size>]
   beautiful-labels write-config ORG REPO DIRECTORY
+  beautiful-labels save-backup ORG REPO DIRECTORY
   beautiful-labels -h | --help
 
 Arguments:
@@ -25,6 +26,7 @@ from labels import Labels
 import scanner
 import terraform
 import svg
+import backup
 
 arguments = docopt(__doc__)
 
@@ -48,6 +50,8 @@ elif cmd == "write-config":
 elif cmd == "create-svg":
     labels.load(config.yaml_filename())
     svg.write_svg(labels, config.svg_filename(), label_font_size=label_font_size)
+elif cmd == "save-backup":
+    backup.save(org, repo, config.backup_filename())
 else:
     print("Unknown command '%s'. Exiting." % cmd, file=sys.stderr)
     sys.exit(1)
