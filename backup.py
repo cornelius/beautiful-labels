@@ -51,7 +51,7 @@ def save_items(org, repo, config, kind):
     json_response = get_items_with_labels(org, repo, kind)
     items = parse_response(json_response, kind)
     while(json_response["repository"][kind]["pageInfo"]["hasNextPage"] == True):
-        cursor = json_response["repository"]["issues"]["pageInfo"]["endCursor"]
+        cursor = json_response["repository"][kind]["pageInfo"]["endCursor"]
         json_response = get_items_with_labels(org, repo, kind, after=cursor)
         items += parse_response(json_response, kind)
     filename = config.backup_filename(kind)
