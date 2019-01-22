@@ -3,7 +3,7 @@ import os
 from graphql import Query
 import json
 
-def get_issues_with_labels(org, repo, after=None):
+def get_items_with_labels(org, repo, kind, after=None):
     if not "GITHUB_TOKEN" in os.environ or not os.environ["GITHUB_TOKEN"]:
         os.sys.exit("Environment variable GITHUB_TOKEN needs to be set to a GitHub authentication token")
 
@@ -12,10 +12,11 @@ def get_issues_with_labels(org, repo, after=None):
         args = "first: 50"
         if after:
             args += ' after: "%s"' % after
-        with q.field("issues", args):
+        with q.field(kind, args):
             with q.field("nodes"):
                 q.field("number")
                 q.field("title")
+                q.field("state")
                 with q.field("labels", "first: 20"):
                     with q.field("nodes"):
                         q.field("name")
@@ -28,26 +29,32 @@ def get_issues_with_labels(org, repo, after=None):
 
     return r.json()["data"]
 
-def parse_response(json_response):
-    issues = []
-    for issue_node in json_response["repository"]["issues"]["nodes"]:
-        issue = {
-            "number": issue_node["number"],
-            "title": issue_node["title"],
+def parse_response(json_response, kind):
+    items = []
+    for item_node in json_response["repository"][kind]["nodes"]:
+        item = {
+            "number": item_node["number"],
+            "title": item_node["title"],
+            "state": item_node["state"],
             "labels": [],
         }
-        for label_node in issue_node["labels"]["nodes"]:
-            issue["labels"].append(label_node["name"])
-        issues.append(issue)
-    return issues
+        for label_node in item_node["labels"]["nodes"]:
+            item["labels"].append(label_node["name"])
+        items.append(item)
+    return items
 
-def save(org, repo, filename):
-    json_response = get_issues_with_labels(org, repo)
-    issues = parse_response(json_response)
-    while(json_response["repository"]["issues"]["pageInfo"]["hasNextPage"] == True):
+def save(org, repo, config):
+    save_items(org, repo, config, 'issues')
+    save_items(org, repo, config, 'pullRequests')
+
+def save_items(org, repo, config, kind):
+    json_response = get_items_with_labels(org, repo, kind)
+    items = parse_response(json_response, kind)
+    while(json_response["repository"][kind]["pageInfo"]["hasNextPage"] == True):
         cursor = json_response["repository"]["issues"]["pageInfo"]["endCursor"]
-        json_response = get_issues_with_labels(org, repo, after=cursor)
-        issues += parse_response(json_response)
-    print(issues)
+        json_response = get_items_with_labels(org, repo, kind, after=cursor)
+        items += parse_response(json_response, kind)
+    filename = config.backup_filename(kind)
     with open(filename, "w") as file:
-        file.write(json.dumps(issues, indent=2, sort_keys=True))
+        file.write(json.dumps(items, indent=2, sort_keys=True))
+    print("Saved backup to '%s'" % filename)

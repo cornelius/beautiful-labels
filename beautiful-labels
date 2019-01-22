@@ -51,7 +51,7 @@ elif cmd == "create-svg":
     labels.load(config.yaml_filename())
     svg.write_svg(labels, config.svg_filename(), label_font_size=label_font_size)
 elif cmd == "save-backup":
-    backup.save(org, repo, config.backup_filename())
+    backup.save(org, repo, config)
 else:
     print("Unknown command '%s'. Exiting." % cmd, file=sys.stderr)
     sys.exit(1)
