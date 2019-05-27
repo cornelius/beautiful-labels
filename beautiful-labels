@@ -1,19 +1,21 @@
 #!/usr/bin/env python3
 """Usage:
-  beautiful-labels scan ORG REPO DIRECTORY
-  beautiful-labels create-svg ORG REPO DIRECTORY [--label-font-size=<size>]
-  beautiful-labels write-config ORG REPO DIRECTORY
-  beautiful-labels save-backup ORG REPO DIRECTORY
+  beautiful-labels scan ORG REPO --output-file=<filename>
+  beautiful-labels create-svg CONFIG_FILE --output-file=<filename> [--label-font-size=<size>]
+  beautiful-labels write-config CONFIG_FILE --output-file=<filename>
+  beautiful-labels save-backup CONFIG_FILE OUTPUT_DIRECTORY
   beautiful-labels -h | --help
 
 Arguments:
-  ORG        name of GitHub organization
-  REPO       name of GitHub repository
-  DIRECTORY  working directory where data is read and written to
+  ORG               Name of GitHub organization
+  REPO              Name of GitHub repository
+  CONFIG_FILE       Path of YAML configuration file
+  OUTPUT_DIRECTORY  Path of directory where backup files are written
 
 Options:
-  -h, --help                Show this help
-  --label-font-size=<size>  Size of font on labels
+  -h, --help                    Show this help
+  --label-font-size=<size>      Size of font on labels
+  -o, --output-file=<filename>  Name of file where data is written to
 """
 from docopt import docopt
 
@@ -21,7 +23,6 @@ import sys
 import yaml
 from pathlib import Path
 
-from config import Config
 from labels import Labels
 import scanner
 import terraform
@@ -32,26 +33,28 @@ arguments = docopt(__doc__)
 
 org = arguments["ORG"]
 repo = arguments["REPO"]
-working_dir = arguments["DIRECTORY"]
+config_file = arguments["CONFIG_FILE"]
+output_directory = arguments["OUTPUT_DIRECTORY"]
+output_file = arguments["--output-file"]
 label_font_size = arguments["--label-font-size"]
 if label_font_size == None:
     label_font_size = 14
 
-config = Config(working_dir, org, repo)
-labels = Labels(org, repo)
+labels = Labels()
 
 cmd = sys.argv[1]
 if cmd == "scan":
-    labels = scanner.scan_labels(config)
-    labels.save(config.yaml_filename())
+    labels = scanner.scan_labels(output_file, org, repo)
+    labels.save(output_file)
 elif cmd == "write-config":
-    labels.load(config.yaml_filename())
-    terraform.write_terraform_config(labels, config.terraform_filename())
+    labels.load(config_file)
+    terraform.write_terraform_config(labels, output_file)
 elif cmd == "create-svg":
-    labels.load(config.yaml_filename())
-    svg.write_svg(labels, config.svg_filename(), label_font_size=label_font_size)
+    labels.load(config_file)
+    svg.write_svg(labels, output_file, label_font_size=label_font_size)
 elif cmd == "save-backup":
-    backup.save(org, repo, config)
+    labels.load(config_file)
+    backup.save(labels.org, labels.repo, output_directory)
 else:
     print("Unknown command '%s'. Exiting." % cmd, file=sys.stderr)
     sys.exit(1)

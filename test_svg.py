@@ -32,7 +32,7 @@ def test_generate_xml():
 '''
 
 def test_calculate_lines():
-    labels = Labels("someorg", "somerepo")
+    labels = Labels()
     labels.load('test_data/structured-labels.yaml')
 
     lines = calculate_lines(labels)
@@ -55,7 +55,7 @@ def test_calculate_lines():
     ]
 
 def test_calculate_lines_with_many_labels():
-    labels = Labels("someorg", "somerepo")
+    labels = Labels()
     for i in range(1,10):
         labels.add_label("Somecategory", str(i), "label %s" % i, "", "%s00" % i)
     labels.add_label("Someothercategory", "x", "other label", "", "fff")
@@ -90,7 +90,7 @@ def test_text_color():
     assert text_color("5319e7") == "white"
 
 def test_write_svg(tmp_path):
-    labels = Labels("multi", "line")
+    labels = Labels()
     labels.load("test_data/multi-line-labels.yaml")
     actual_file = tmp_path / 'multi-line-labels.svg'
     write_svg(labels, actual_file, label_font_size=15)

@@ -1,9 +1,7 @@
 import yaml
 
 class Labels:
-    def __init__(self, org, repo):
-        self.org = org
-        self.repo = repo
+    def __init__(self):
         self.categories = {}
         self.category_names = []
         self.remote_state_org = ""
@@ -39,6 +37,8 @@ class Labels:
     def load(self, filename):
         with open(filename) as file:
             yaml_data = yaml.full_load(file)
+        self.org = yaml_data["org"]
+        self.repo = yaml_data["repo"]
         if "remote_state" in yaml_data:
             if "org" in yaml_data["remote_state"]:
                 self.remote_state_org = yaml_data["remote_state"]["org"]

@@ -2,6 +2,7 @@ import requests
 import os
 from graphql import Query
 import json
+from config import backup_filename
 
 def get_items_with_labels(org, repo, kind, after=None):
     if not "GITHUB_TOKEN" in os.environ or not os.environ["GITHUB_TOKEN"]:
@@ -43,18 +44,18 @@ def parse_response(json_response, kind):
         items.append(item)
     return items
 
-def save(org, repo, config):
-    save_items(org, repo, config, 'issues')
-    save_items(org, repo, config, 'pullRequests')
+def save(org, repo, output_directory):
+    save_items(org, repo, output_directory, 'issues')
+    save_items(org, repo, output_directory, 'pullRequests')
 
-def save_items(org, repo, config, kind):
+def save_items(org, repo, output_directory, kind):
     json_response = get_items_with_labels(org, repo, kind)
     items = parse_response(json_response, kind)
     while(json_response["repository"][kind]["pageInfo"]["hasNextPage"] == True):
         cursor = json_response["repository"][kind]["pageInfo"]["endCursor"]
         json_response = get_items_with_labels(org, repo, kind, after=cursor)
         items += parse_response(json_response, kind)
-    filename = config.backup_filename(kind)
+    filename = backup_filename(output_directory, org, repo, kind)
     with open(filename, "w") as file:
         file.write(json.dumps(items, indent=2, sort_keys=True))
     print("Saved backup to '%s'" % filename)

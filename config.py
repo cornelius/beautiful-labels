@@ -4,27 +4,11 @@ import datetime
 def now():
     return datetime.datetime.now()
 
-class Config:
-    def __init__(self, dir, org, repo):
-        self.working_dir = dir
-        self.org = org
-        self.repo = repo
+def json_filename(output_file):
+    if not output_file.endswith(".yaml"):
+        raise RuntimeError("Error: Expected output file to end with '.yaml'")
+    return output_file.replace(".yaml", ".json")
 
-    def filename(self, extension):
-        return str(Path(self.working_dir) / (self.org + '-' + self.repo + '-labels.' + extension))
-
-    def yaml_filename(self):
-        return self.filename('yaml')
-
-    def terraform_filename(self):
-        return self.filename('tf')
-
-    def json_filename(self):
-        return self.filename('json')
-
-    def svg_filename(self):
-        return self.filename('svg')
-
-    def backup_filename(self, kind):
-        return str(Path(self.working_dir) / (self.org + '-' + self.repo + '-backup-labels-'
-            + kind + '.' + now().strftime("%Y%m%dT%H%M%S") + ".json"))
+def backup_filename(output_directory, org, repo, kind):
+    return str(Path(output_directory) / (org + '-' + repo + '-backup-labels-'
+        + kind + '.' + now().strftime("%Y%m%dT%H%M%S") + ".json"))

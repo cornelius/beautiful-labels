@@ -2,7 +2,7 @@ from terraform import write_terraform_config
 from labels import Labels
 
 def assert_write_config(tmp_path, name):
-    labels = Labels("someorg", "somerepo")
+    labels = Labels()
     labels.load('test_data/%s.yaml' % name)
     actual_file = tmp_path / 'someorg-somerepo-labels.tf'
     write_terraform_config(labels, str(actual_file))
@@ -15,7 +15,7 @@ def test_write_config(tmp_path):
         assert_write_config(tmp_path, name)
 
 def test_write_terraform_config(tmp_path):
-    labels = Labels("someorg", "somerepo")
+    labels = Labels()
     labels.load('test_data/labels.yaml')
     actual_file = tmp_path / 'someorg-somerepo-labels.tf'
     write_terraform_config(labels, str(actual_file))
@@ -24,7 +24,7 @@ def test_write_terraform_config(tmp_path):
             assert actual_file.read() == expected_file.read()
 
 def test_write_structured_terraform_config(tmp_path):
-    labels = Labels("someorg", "somerepo")
+    labels = Labels()
     labels.load('test_data/structured-labels.yaml')
     actual_file = tmp_path / 'someorg-somerepo-labels.tf'
     write_terraform_config(labels, str(actual_file))

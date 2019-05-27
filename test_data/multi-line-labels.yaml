@@ -1,5 +1,5 @@
-org: someorg
-repo: somerepo
+org: multi
+repo: line
 categories:
 - name: Type
   labels:

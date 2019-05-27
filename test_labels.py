@@ -3,7 +3,9 @@ import yaml
 from labels import Labels
 
 def test_save(tmp_path):
-    labels = Labels("someorg", "somerepo")
+    labels = Labels()
+    labels.org = "someorg"
+    labels.repo = "somerepo"
     labels.add_label("scanned", "another_label", "another label", "", "EE7912")
     labels.add_label("scanned", "bug", "bug", "Something isn't working", "d73a4a")
     labels.add_label("scanned", "common_issue", "common issue", "Label used across repositories", "333333")
@@ -24,7 +26,7 @@ def test_equivalence_of_written_and_test_data():
     assert written_data == test_data
 
 def test_load():
-    labels = Labels("someorg", "somerepo")
+    labels = Labels()
     labels.load('test_data/labels.yaml')
 
     assert len(labels.labels_for_category("scanned")) == 3
@@ -40,7 +42,7 @@ def test_load():
     assert label["color"] == "d73a4a"
 
 def test_structured_load():
-    labels = Labels("someorg", "somerepo")
+    labels = Labels()
     labels.load('test_data/structured-labels.yaml')
 
     assert len(labels.labels_for_category("Type")) == 1
@@ -55,7 +57,7 @@ def test_structured_load():
     assert label["color"] == "123456"
 
 def test_remote_state_load():
-    labels = Labels("someorg", "somerepo")
+    labels = Labels()
     labels.load('test_data/remote-state-labels.yaml')
 
     assert labels.remote_state_org == "someterraformorg"
