@@ -2,15 +2,15 @@ categories:
 - labels:
   - color: EE7912
     description: ''
-    id: 1166740325
+    id: another_label
     name: another label
   - color: d73a4a
     description: Something isn't working
-    id: 1097075204
+    id: bug
     name: bug
   - color: '333333'
     description: Label used across repositories
-    id: 1167038964
+    id: common_issue
     name: common issue
   name: scanned
 org: someorg

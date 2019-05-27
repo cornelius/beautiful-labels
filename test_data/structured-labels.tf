@@ -5,21 +5,21 @@ provider "github" {
   token = "${var.github_token}"
 }
 
-resource "github_issue_label" "1097075204" {
+resource "github_issue_label" "someorg_somerepo_bug" {
   repository  = "somerepo"
   name        = "bug"
   description = "Something isn't working"
   color       = "d73a4a"
 }
 
-resource "github_issue_label" "1166740325" {
+resource "github_issue_label" "someorg_somerepo_frontend" {
   repository  = "somerepo"
   name        = "frontend"
   description = "Frontend"
   color       = "dddddd"
 }
 
-resource "github_issue_label" "1167038964" {
+resource "github_issue_label" "someorg_somerepo_backend" {
   repository  = "somerepo"
   name        = "backend"
   description = "Backend and database"

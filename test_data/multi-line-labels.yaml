@@ -5,20 +5,20 @@ categories:
   labels:
   - color: d73a4a
     description: Something isn't working
-    id: 1097075204
+    id: bug
     name: bug
   - description: New feature
-    id: 1167038965
+    id: feature
     name: feature
     color: 123456
   - description: ''
-    id: 1167038965
+    id: refactoring
     name: refactoring
     color: 654321
   - color: 'dddddd'
     description: Frontend
-    id: 1166740325
+    id: frontend
     name: frontend
   - description: Backend and database
-    id: 1167038964
+    id: backend
     name: backend

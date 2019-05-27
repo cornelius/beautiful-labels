@@ -13,7 +13,7 @@ def write_terraform_config(labels, filename):
         for category in labels.all_categories():
             print("  Category '%s'" % category)
             for label in labels.labels_for_category(category):
-                label_id = label["id"]
+                label_id = id_for_label(labels, label)
                 file.write("\n")
                 file.write("resource \"github_issue_label\" \"%s\" {\n" % label_id)
                 file.write("  repository  = \"%s\"\n" % labels.repo)
@@ -21,3 +21,6 @@ def write_terraform_config(labels, filename):
                 file.write("  description = \"%s\"\n" % label["description"])
                 file.write("  color       = \"%s\"\n" % label["color"])
                 file.write("}\n")
+
+def id_for_label(labels, label):
+    return labels.org + "_" + labels.repo + "_" + label["id"]

@@ -1,5 +1,5 @@
 import json
-from scanner import labels_from_json_data
+from scanner import labels_from_json_data, id_from_name
 
 def test_write_yaml(tmp_path):
     with open('test_data/labels.json') as file:
@@ -9,3 +9,8 @@ def test_write_yaml(tmp_path):
     with open('test_data/written-labels.yaml') as expected_file:
         with open(str(actual_file)) as actual_file:
             assert actual_file.read() == expected_file.read()
+
+
+def test_id_from_name():
+    assert id_from_name("bug") == "bug"
+    assert id_from_name("some label") == "some_label"

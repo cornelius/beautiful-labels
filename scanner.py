@@ -32,5 +32,8 @@ def labels_from_json_data(org, repo, json_data):
                 "in the environment variable GITHUB_TOKEN.")
     labels = Labels(org, repo)
     for label in labels_json:
-        labels.add_label('scanned', label['id'], label['name'], label['description'], label['color'])
+        labels.add_label('scanned', id_from_name(label['name']), label['name'], label['description'], label['color'])
     return labels
+
+def id_from_name(name):
+    return name.replace(" ", "_")
