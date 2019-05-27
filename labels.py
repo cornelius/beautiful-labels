@@ -36,7 +36,7 @@ class Labels:
 
     def load(self, filename):
         with open(filename) as file:
-            yaml_data = yaml.load(file)
+            yaml_data = yaml.full_load(file)
         for category in yaml_data["categories"]:
             category_name = category["name"]
             if "color" in category:

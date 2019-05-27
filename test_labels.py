@@ -18,9 +18,9 @@ def test_save(tmp_path):
 
 def test_equivalence_of_written_and_test_data():
     with open('test_data/written-labels.yaml') as file:
-        written_data = yaml.load(file)
+        written_data = yaml.full_load(file)
     with open('test_data/labels.yaml') as file:
-        test_data = yaml.load(file)
+        test_data = yaml.full_load(file)
     assert written_data == test_data
 
 def test_load():

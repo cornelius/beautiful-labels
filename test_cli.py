@@ -32,9 +32,9 @@ def test_scan(tmp_path):
 
     actual_file = tmp_path / 'someorg-somerepo-labels.yaml'
     with open(str(actual_file)) as file:
-        actual_data = yaml.load(file)
+        actual_data = yaml.full_load(file)
     with open('test_data/labels.yaml') as file:
-        expected_data = yaml.load(file)
+        expected_data = yaml.full_load(file)
     assert actual_data == expected_data
 
 def test_create_svg(tmp_path):
