@@ -53,3 +53,10 @@ def test_structured_load():
     label = labels.labels_for_category("Components")[1]
     assert label["name"] == "backend"
     assert label["color"] == "123456"
+
+def test_remote_state_load():
+    labels = Labels("someorg", "somerepo")
+    labels.load('test_data/remote-state-labels.yaml')
+
+    assert labels.remote_state_org == "someterraformorg"
+    assert labels.remote_state_workspace == "someworkspace"

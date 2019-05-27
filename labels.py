@@ -6,6 +6,8 @@ class Labels:
         self.repo = repo
         self.categories = {}
         self.category_names = []
+        self.remote_state_org = ""
+        self.remote_state_workspace = "beautiful-labels"
 
     def add_label(self, category, label_id, name, description, color):
         if not category in self.categories:
@@ -37,6 +39,11 @@ class Labels:
     def load(self, filename):
         with open(filename) as file:
             yaml_data = yaml.full_load(file)
+        if "remote_state" in yaml_data:
+            if "org" in yaml_data["remote_state"]:
+                self.remote_state_org = yaml_data["remote_state"]["org"]
+            if "workspace" in yaml_data["remote_state"]:
+                self.remote_state_workspace = yaml_data["remote_state"]["workspace"]
         for category in yaml_data["categories"]:
             category_name = category["name"]
             if "color" in category:

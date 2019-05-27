@@ -4,6 +4,17 @@ def write_terraform_config(labels, filename):
     print("Writing Terraform config...")
 
     with open(filename, "w") as file:
+        if labels.remote_state_org:
+            file.write("terraform {\n")
+            file.write("  backend \"remote\" {\n")
+            file.write("    hostname = \"app.terraform.io\"\n")
+            file.write("    organization = \"%s\"\n" % labels.remote_state_org)
+            file.write("\n")
+            file.write("    workspaces {\n")
+            file.write("      name = \"%s\"\n" % labels.remote_state_workspace)
+            file.write("    }\n")
+            file.write("  }\n")
+            file.write("}\n\n")
         file.write("variable \"github_token\" {}\n")
         file.write("\n")
         file.write("provider \"github\" {\n")

@@ -1,0 +1,16 @@
+org: someorg
+repo: somerepo
+remote_state:
+  org: someterraformorg
+  workspace: someworkspace
+categories:
+- name: example
+  labels:
+  - color: EE7912
+    description: ''
+    id: another_label
+    name: another label
+  - color: d73a4a
+    description: Something isn't working
+    id: bug
+    name: bug
