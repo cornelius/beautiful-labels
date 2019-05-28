@@ -62,3 +62,19 @@ def test_remote_state_load():
 
     assert labels.remote_state_org == "someterraformorg"
     assert labels.remote_state_workspace == "someworkspace"
+
+def test_as_text():
+    labels = Labels()
+    labels.load('test_data/structured-labels.yaml')
+    expected = '''# Labels for someorg/somerepo
+
+## Type
+
+* bug (Something isn't working) [#d73a4a]
+
+## Components
+
+* frontend (Frontend) [#dddddd]
+* backend (Backend and database) [#123456]
+'''
+    assert labels.as_text() == expected

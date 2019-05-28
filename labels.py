@@ -56,3 +56,20 @@ class Labels:
                 else:
                     color = category_color
                 self.add_label(category_name, label["id"], label["name"], label["description"], color)
+
+    def show(self):
+        print(self.as_text(), end='')
+
+    def as_text(self):
+        out = ""
+        out += "# Labels for %s/%s\n" % (self.org, self.repo)
+        if self.remote_state_org:
+            out += "Terraform remote state in %s/%s\n" % (self.remote_state_org, self.remote_state_workspace)
+        for category in self.all_categories():
+            out += "\n## %s\n\n" % category
+            for label in self.labels_for_category(category):
+                out += "* %s" % label["name"]
+                if label["description"]:
+                    out += " (%s)" % label["description"]
+                out += " [#%s]\n" % label["color"]
+        return out

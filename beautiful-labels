@@ -4,6 +4,7 @@
   beautiful-labels create-svg CONFIG_FILE --output-file=<filename> [--label-font-size=<size>]
   beautiful-labels write-config CONFIG_FILE --output-file=<filename>
   beautiful-labels save-backup CONFIG_FILE OUTPUT_DIRECTORY
+  beautiful-labels show CONFIG_FILE
   beautiful-labels -h | --help
 
 Commands:
@@ -11,6 +12,7 @@ Commands:
   create-svg    Create picture from YAML configuration with overview of labels
   write-config  Write Terraform configuration from YAML configuration
   save-backup   Save label assignment as backup in a JSON file
+  show          Show parsed content of YAML configuration on standard output
 
 Arguments:
   ORG               Name of GitHub organization
@@ -61,6 +63,9 @@ elif cmd == "create-svg":
 elif cmd == "save-backup":
     labels.load(config_file)
     backup.save(labels.org, labels.repo, output_directory)
+elif cmd == "show":
+    labels.load(config_file)
+    labels.show()
 else:
     print("Unknown command '%s'. Exiting." % cmd, file=sys.stderr)
     sys.exit(1)
