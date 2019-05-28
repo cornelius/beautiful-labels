@@ -6,6 +6,12 @@
   beautiful-labels save-backup CONFIG_FILE OUTPUT_DIRECTORY
   beautiful-labels -h | --help
 
+Commands:
+  scan          Scan existing labels of repo and create YAML configuration file
+  create-svg    Create picture from YAML configuration with overview of labels
+  write-config  Write Terraform configuration from YAML configuration
+  save-backup   Save label assignment as backup in a JSON file
+
 Arguments:
   ORG               Name of GitHub organization
   REPO              Name of GitHub repository
