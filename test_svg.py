@@ -1,5 +1,5 @@
 from svg import Document
-from labels import Labels
+from labels import Labels, Repo
 from svg import calculate_lines, text_color, write_svg
 
 def test_generate_xml():
@@ -35,7 +35,7 @@ def test_calculate_lines():
     labels = Labels()
     labels.load('test_data/structured-labels.yaml')
 
-    lines = calculate_lines(labels)
+    lines = calculate_lines(labels.repo("somerepo"))
 
     assert lines == [
         ('Type',
@@ -55,12 +55,12 @@ def test_calculate_lines():
     ]
 
 def test_calculate_lines_with_many_labels():
-    labels = Labels()
+    repo = Repo()
     for i in range(1,10):
-        labels.add_label("Somecategory", str(i), "label %s" % i, "", "%s00" % i)
-    labels.add_label("Someothercategory", "x", "other label", "", "fff")
+        repo.add_label("Somecategory", str(i), "label %s" % i, "", "%s00" % i)
+    repo.add_label("Someothercategory", "x", "other label", "", "fff")
 
-    lines = calculate_lines(labels)
+    lines = calculate_lines(repo)
 
     print(lines)
 
@@ -93,7 +93,7 @@ def test_write_svg(tmp_path):
     labels = Labels()
     labels.load("test_data/multi-line-labels.yaml")
     actual_file = tmp_path / 'multi-line-labels.svg'
-    write_svg(labels, actual_file, label_font_size=15)
+    write_svg(labels.org, labels.repo("line"), actual_file, label_font_size=15)
 
     with open('test_data/multi-line-labels.svg') as expected_file:
         with open(str(actual_file)) as actual_file:

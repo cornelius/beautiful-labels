@@ -51,12 +51,12 @@ class Document:
         self.indent()
         self.out += text + "\n"
 
-def calculate_lines(labels):
+def calculate_lines(repo):
     lines = []
-    for category in labels.all_categories():
+    for category in repo.all_categories():
         line_header = category
         line_labels = []
-        for label in labels.labels_for_category(category):
+        for label in repo.labels_for_category(category):
             line_labels.append(label)
             if len(line_labels) == 4:
                 lines.append((line_header, line_labels.copy()))
@@ -83,8 +83,8 @@ def write_text(doc, text, size=20, fill="black", x="0", y="0"):
 def write_rect(doc, x=0, y=0, width=10, height=10, fill="black"):
     doc.tag('rect', 'x="%s" y="%s" width="%s" height="%s" fill="%s" rx="5"' % (x, y, width, height, fill))
 
-def write_svg(labels, filename, label_font_size=14):
-    lines = calculate_lines(labels)
+def write_svg(org, repo, filename, label_font_size=14):
+    lines = calculate_lines(repo)
 
     line_height = 60
 
@@ -95,7 +95,7 @@ def write_svg(labels, filename, label_font_size=14):
     with doc.tag('svg', 'width="%s" height="%s"' % (image_width, image_height)):
         doc.tag('rect', 'x="0" y="0" width="%s" height="%s" fill="#eee"' % (image_width, image_height))
 
-        write_text(doc, "Labels for %s/%s" % (labels.org, labels.repo), size=25, fill="#444", x=40, y=50)
+        write_text(doc, "Labels for %s/%s" % (org, repo.repo), size=25, fill="#444", x=40, y=50)
 
         line_y = 120
         for category, labels_line in lines:

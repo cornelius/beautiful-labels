@@ -1,17 +1,18 @@
-categories:
-- labels:
-  - color: EE7912
-    description: ''
-    id: another_label
-    name: another label
-  - color: d73a4a
-    description: Something isn't working
-    id: bug
-    name: bug
-  - color: '333333'
-    description: Label used across repositories
-    id: common_issue
-    name: common issue
-  name: scanned
 org: someorg
-repo: somerepo
+repos:
+- categories:
+  - labels:
+    - color: EE7912
+      description: ''
+      id: another_label
+      name: another label
+    - color: d73a4a
+      description: Something isn't working
+      id: bug
+      name: bug
+    - color: '333333'
+      description: Label used across repositories
+      id: common_issue
+      name: common issue
+    name: scanned
+  repo: somerepo

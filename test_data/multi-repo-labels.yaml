@@ -1,0 +1,29 @@
+remote_state:
+  org: someterraformorg
+shared: &label_bug
+  color: d73a4a
+  description: Something isn't working
+  id: bug
+  name: bug
+org: someorg
+repos:
+- categories:
+  - name: Type
+    labels:
+    - *label_bug
+    - color: a2eeef
+      description: New feature
+      id: enhancement
+      name: feature
+  repo: somerepo
+- categories:
+  - name: Type
+    labels:
+    - *label_bug
+  - name: Welcome
+    labels:
+    - color: 7057ff
+      description: Good for newcomers
+      id: good_first_issue
+      name: good first issue
+  repo: anotherrepo

@@ -31,3 +31,12 @@ def test_write_structured_terraform_config(tmp_path):
     with open('test_data/structured-labels.tf') as expected_file:
         with open(str(actual_file)) as actual_file:
             assert actual_file.read() == expected_file.read()
+
+def test_write_multi_repo_terraform_config(tmp_path):
+    labels = Labels()
+    labels.load('test_data/multi-repo-labels.yaml')
+    actual_file = tmp_path / 'multi-repo-labels.tf'
+    write_terraform_config(labels, str(actual_file))
+    with open('test_data/multi-repo-labels.tf') as expected_file:
+        with open(str(actual_file)) as actual_file:
+            assert actual_file.read() == expected_file.read()

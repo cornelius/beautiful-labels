@@ -21,17 +21,20 @@ def write_terraform_config(labels, filename):
         file.write("  organization = \"%s\"\n" % labels.org)
         file.write("  token = \"${var.github_token}\"\n")
         file.write("}\n")
-        for category in labels.all_categories():
-            print("  Category '%s'" % category)
-            for label in labels.labels_for_category(category):
-                label_id = id_for_label(labels, label)
-                file.write("\n")
-                file.write("resource \"github_issue_label\" \"%s\" {\n" % label_id)
-                file.write("  repository  = \"%s\"\n" % labels.repo)
-                file.write("  name        = \"%s\"\n" % label["name"])
-                file.write("  description = \"%s\"\n" % label["description"])
-                file.write("  color       = \"%s\"\n" % label["color"])
-                file.write("}\n")
+        for repo in labels.repos():
+            print("  Repo '%s/%s'" % (labels.org, repo.repo))
+            for category in repo.all_categories():
+                print("    Category '%s'" % category)
+                for label in repo.labels_for_category(category):
+                    print("      Label '%s'" % label["name"])
+                    label_id = id_for_label(labels.org, repo, label)
+                    file.write("\n")
+                    file.write("resource \"github_issue_label\" \"%s\" {\n" % label_id)
+                    file.write("  repository  = \"%s\"\n" % repo.repo)
+                    file.write("  name        = \"%s\"\n" % label["name"])
+                    file.write("  description = \"%s\"\n" % label["description"])
+                    file.write("  color       = \"%s\"\n" % label["color"])
+                    file.write("}\n")
 
-def id_for_label(labels, label):
-    return labels.org + "_" + labels.repo + "_" + label["id"]
+def id_for_label(org, repo, label):
+    return org + "_" + repo.repo + "_" + label["id"]

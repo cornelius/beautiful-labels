@@ -4,7 +4,7 @@ from pathlib import Path
 import os
 import sys
 
-from labels import Labels
+from labels import Labels, Repo
 from config import json_filename
 
 def scan_labels(output_file, org, repo):
@@ -34,9 +34,11 @@ def labels_from_json_data(org, repo, json_data):
                 "in the environment variable GITHUB_TOKEN.")
     labels = Labels()
     labels.org = org
-    labels.repo = repo
+    r = Repo()
+    r.repo = repo
     for label in labels_json:
-        labels.add_label('scanned', id_from_name(label['name']), label['name'], label['description'], label['color'])
+        r.add_label('scanned', id_from_name(label['name']), label['name'], label['description'], label['color'])
+    labels.add_repo(r)
     return labels
 
 def id_from_name(name):

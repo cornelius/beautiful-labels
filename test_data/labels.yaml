@@ -1,17 +1,18 @@
 org: someorg
-repo: somerepo
-categories:
-- name: scanned
-  labels:
-  - color: EE7912
-    description: ''
-    id: another_label
-    name: another label
-  - color: d73a4a
-    description: Something isn't working
-    id: bug
-    name: bug
-  - color: '333333'
-    description: Label used across repositories
-    id: common_issue
-    name: common issue
+repos:
+- repo: somerepo
+  categories:
+  - name: scanned
+    labels:
+    - color: EE7912
+      description: ''
+      id: another_label
+      name: another label
+    - color: d73a4a
+      description: Something isn't working
+      id: bug
+      name: bug
+    - color: '333333'
+      description: Label used across repositories
+      id: common_issue
+      name: common issue

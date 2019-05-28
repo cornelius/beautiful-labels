@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """Usage:
   beautiful-labels scan ORG REPO --output-file=<filename>
-  beautiful-labels create-svg CONFIG_FILE --output-file=<filename> [--label-font-size=<size>]
+  beautiful-labels create-svg CONFIG_FILE REPO --output-file=<filename> [--label-font-size=<size>]
   beautiful-labels write-config CONFIG_FILE --output-file=<filename>
-  beautiful-labels save-backup CONFIG_FILE OUTPUT_DIRECTORY
+  beautiful-labels save-backup CONFIG_FILE REPO OUTPUT_DIRECTORY
   beautiful-labels show CONFIG_FILE
   beautiful-labels -h | --help
 
@@ -40,7 +40,7 @@ import backup
 arguments = docopt(__doc__)
 
 org = arguments["ORG"]
-repo = arguments["REPO"]
+repo_name = arguments["REPO"]
 config_file = arguments["CONFIG_FILE"]
 output_directory = arguments["OUTPUT_DIRECTORY"]
 output_file = arguments["--output-file"]
@@ -52,17 +52,22 @@ labels = Labels()
 
 cmd = sys.argv[1]
 if cmd == "scan":
-    labels = scanner.scan_labels(output_file, org, repo)
+    labels = scanner.scan_labels(output_file, org, repo_name)
     labels.save(output_file)
 elif cmd == "write-config":
     labels.load(config_file)
     terraform.write_terraform_config(labels, output_file)
 elif cmd == "create-svg":
     labels.load(config_file)
-    svg.write_svg(labels, output_file, label_font_size=label_font_size)
+    repo = labels.repo(repo_name)
+    if not repo:
+        sys.exit("Unknown repo '%s'" % repo_name)
+    svg.write_svg(labels.org, repo, output_file, label_font_size=label_font_size)
 elif cmd == "save-backup":
     labels.load(config_file)
-    backup.save(labels.org, labels.repo, output_directory)
+    if not labels.repo(repo_name):
+        sys.exit("Unknown repo '%s'" % repo_name)
+    backup.save(labels.org, repo_name, output_directory)
 elif cmd == "show":
     labels.load(config_file)
     labels.show()
