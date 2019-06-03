@@ -1,0 +1,16 @@
+org: someorg
+repos:
+- repo: somerepo
+  categories:
+  - name: All
+    color: abcdef
+    labels:
+    - description: ''
+      id: another_label
+      name: another label
+    - description: Something isn't working
+      id: bug
+      name: bug
+    - description: Label used across repositories
+      id: common_issue
+      name: common issue

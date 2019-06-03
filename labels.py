@@ -1,5 +1,7 @@
 import yaml
 
+from color_range import ColorRange
+
 class Repo:
     def __init__(self):
         self.categories = {}
@@ -21,13 +23,18 @@ class Repo:
         self.repo = yaml_data["repo"]
         for category in yaml_data["categories"]:
             category_name = category["name"]
+            color_range = None
             if "color" in category:
                 category_color = category["color"]
             else:
                 category_color = "ffffff"
-            for label in category["labels"]:
+            if category_color.startswith("range-"):
+                color_range = ColorRange(category_color[6:])
+            for index, label in enumerate(category["labels"]):
                 if "color" in label:
                     color = label["color"]
+                elif color_range:
+                    color = color_range.color_range(index, len(category["labels"]))
                 else:
                     color = category_color
                 self.add_label(category_name, label["id"], label["name"], label["description"], color)

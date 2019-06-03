@@ -1,0 +1,13 @@
+org: someorg
+repos:
+- repo: somerepo
+  categories:
+  - name: All
+    color: range-rainbow
+    labels:
+    - description: ''
+      id: another_label
+      name: another label
+    - description: Something isn't working
+      id: label
+      name: label

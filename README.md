@@ -148,6 +148,14 @@ remote_state:
 
 If the `workspace` entry is left out a default name `beautiful-labels` is used.
 
+### Colors
+
+You can specify colors per label in the configuration by providing an entry of the form `color: rrggbb` where `rrggbb` is the hex code of the color in the label part of the configuration.
+
+You can also specify a color per category which is used for all labels in the category by providing the the `color` entry not on the label level but on the category level.
+
+There is a special kind of color value recognized on the category level to specify not the same color for all labels but a range which is then automatically calculated for all labels in the category. This results in the labels of a category using something like a gradient for their colors so that they can be distinguished by the color but still adhere to the same base color. All range values start with `range-`. Valid values are `range-blue`, `range-green`, `range-red`, `range-pink`, `range-grey`. There also is the special range `range-rainbow` (you can guess what that does).
+
 
 ## Real-world example
 

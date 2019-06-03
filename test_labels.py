@@ -83,6 +83,30 @@ def test_remote_state_load():
     assert labels.remote_state_org == "someterraformorg"
     assert labels.remote_state_workspace == "someworkspace"
 
+def test_category_color_load():
+    labels = Labels()
+    labels.load('test_data/category-color-labels.yaml')
+
+    for label in labels.repos()[0].labels_for_category("All"):
+        assert label["color"] == "abcdef"
+
+def test_category_color_range_load():
+    labels = Labels()
+    labels.load('test_data/category-color-range-labels.yaml')
+
+    l = labels.repos()[0].labels_for_category("All")
+    assert l[0]["color"] == "1/3"
+    assert l[1]["color"] == "2/3"
+    assert l[2]["color"] == "3/3"
+
+def test_category_color_range_rainbow_load():
+    labels = Labels()
+    labels.load('test_data/category-color-range-rainbow-labels.yaml')
+
+    l = labels.repos()[0].labels_for_category("All")
+    assert l[0]["color"] == "e51919"
+    assert l[1]["color"] == "19e5e5"
+
 def test_as_text_structured():
     labels = Labels()
     labels.load('test_data/structured-labels.yaml')
