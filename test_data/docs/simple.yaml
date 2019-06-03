@@ -1,0 +1,13 @@
+org: someorg
+repo: somerepo
+categories:
+  - name: All
+    labels:
+    - name: bug
+      description: Bug reports
+      color: d73a4a
+      id: bug
+    - name: feature
+      description: Feature requests
+      color: a2eeef
+      id: feature

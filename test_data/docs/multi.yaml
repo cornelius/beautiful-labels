@@ -1,0 +1,27 @@
+shared: &label_bug
+  name: bug
+  description: Something isn't working
+  color: d73a4a
+  id: bug
+org: someorg
+repos:
+- repo: somerepo
+  categories:
+  - name: Type
+    labels:
+    - *label_bug
+    - name: feature
+      description: New feature
+      color: a2eeef
+      id: enhancement
+- repo: anotherrepo
+  categories:
+  - name: Type
+    labels:
+    - *label_bug
+  - name: Welcome
+    labels:
+    - name: good first issue
+      description: Good for newcomers
+      color: 7057ff
+      id: good_first_issue
