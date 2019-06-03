@@ -132,7 +132,7 @@ These are the generated labels:
 
 ![multi repo example 1](test_data/docs/multi-somerepo.svg)
 
-![multi repo example 2](test_data/docs/multi-another-repo.svg)
+![multi repo example 2](test_data/docs/multi-anotherrepo.svg)
 
 ### Terraform remote state
 
