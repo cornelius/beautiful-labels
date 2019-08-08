@@ -96,6 +96,8 @@ This is an example for a configuration for multiple repos. The label configurati
 
 The example creates two labels for two repositories. The `bug` label is defined as a shared description in both repositories by using a YAML anchor and references to that. The other labels are defined for their specific repositories.
 
+Note that you can use all features of YAML supported by [PyYAML](https://pyyaml.org/wiki/PyYAMLDocumentation) to craft a configuration. This can for example be useful to avoid duplication when the same labels are used in several repositories.
+
 The first repo has all labels in one category `Type`, while the second repo has a second category `Welcome` for the `good first issue` label. This makes more sense if you have more labels.
 
 ```yaml
